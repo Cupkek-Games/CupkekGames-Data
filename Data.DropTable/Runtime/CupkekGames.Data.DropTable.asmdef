@@ -1,0 +1,17 @@
+{
+	"name": "CupkekGames.Data.DropTable",
+	"rootNamespace": "CupkekGames.Data.DropTable",
+	"references": [
+		"GUID:a57eb40d9a9e0984a816dda1fdae8adf",
+		"GUID:c95c4fa533d6fdb47871e2223c77f6d0"
+	],
+	"includePlatforms": [],
+	"excludePlatforms": [],
+	"allowUnsafeCode": false,
+	"overrideReferences": false,
+	"precompiledReferences": [],
+	"autoReferenced": true,
+	"defineConstraints": [],
+	"versionDefines": [],
+	"noEngineReferences": false
+}

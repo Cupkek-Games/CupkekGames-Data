@@ -1,0 +1,16 @@
+{
+	"name": "CupkekGames.Data.Primitives",
+	"rootNamespace": "",
+	"references": [
+		"GUID:38afbb2359e489e4fa79dc88f61428b5"
+	],
+	"includePlatforms": [],
+	"excludePlatforms": [],
+	"allowUnsafeCode": false,
+	"overrideReferences": false,
+	"precompiledReferences": [],
+	"autoReferenced": true,
+	"defineConstraints": [],
+	"versionDefines": [],
+	"noEngineReferences": false
+}

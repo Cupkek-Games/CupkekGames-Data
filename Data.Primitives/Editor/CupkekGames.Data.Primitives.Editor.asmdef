@@ -1,0 +1,19 @@
+{
+    "name": "CupkekGames.Data.Primitives.Editor",
+    "rootNamespace": "",
+    "references": [
+		"GUID:99af10b529824702946fb144b93bed73",
+		"GUID:ab7612e7fe1d7e64ab54a584495caa06"
+	],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

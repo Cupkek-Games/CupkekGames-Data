@@ -1,0 +1,17 @@
+{
+	"name": "CupkekGames.Data",
+	"rootNamespace": "",
+	"references": [
+		"GUID:c95c4fa533d6fdb47871e2223c77f6d0",
+		"GUID:38afbb2359e489e4fa79dc88f61428b5"
+	],
+	"includePlatforms": [],
+	"excludePlatforms": [],
+	"allowUnsafeCode": false,
+	"overrideReferences": false,
+	"precompiledReferences": [],
+	"autoReferenced": true,
+	"defineConstraints": [],
+	"versionDefines": [],
+	"noEngineReferences": false
+}
