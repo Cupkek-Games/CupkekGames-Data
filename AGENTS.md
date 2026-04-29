@@ -56,7 +56,7 @@ com.cupkekgames.data/
 
 ## Related packages
 
-- `com.cupkekgames.keyvaluedatabase` — serializable Dictionary used by `AssetCatalog`
+- `com.cupkekgames.keyvaluedatabases` — serializable Dictionary used by `AssetCatalog`
 - `com.cupkekgames.assetfinder` — `[AssetFinder]` attribute on catalogs
 - `com.cupkekgames.editorui` — custom inspector widgets
 - `com.cupkekgames.services` — service registration

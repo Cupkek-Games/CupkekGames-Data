@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-using CupkekGames.KeyValueDatabase.Editor;
+using CupkekGames.KeyValueDatabases.Editor;
 using CupkekGames.Data.Primitives;
 using UnityEditor;
 using UnityEditor.UIElements;

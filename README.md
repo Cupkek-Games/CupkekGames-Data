@@ -10,7 +10,7 @@ Data foundation for CupkekGames packages. **No Luna / UI dependency** — reusab
 
 ## Dependencies
 
-- `com.cupkekgames.keyvaluedatabase` (catalogs/databases)
+- `com.cupkekgames.keyvaluedatabases` (catalogs/databases)
 - `com.cupkekgames.editorui` (custom inspectors)
 - `com.cupkekgames.assetfinder` (`[AssetFinder]` attribute on catalogs)
 - `com.cupkekgames.services` (data service registration)
