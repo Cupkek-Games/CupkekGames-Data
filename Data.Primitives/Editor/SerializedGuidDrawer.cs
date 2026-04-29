@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
+using CupkekGames.EditorUI;
 using System;
-using CupkekGames.Core.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;

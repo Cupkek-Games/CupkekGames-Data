@@ -2,9 +2,10 @@
     "name": "CupkekGames.Data.Primitives.Editor",
     "rootNamespace": "",
     "references": [
-		"GUID:99af10b529824702946fb144b93bed73",
-		"GUID:ab7612e7fe1d7e64ab54a584495caa06"
-	],
+        "GUID:99af10b529824702946fb144b93bed73",
+        "GUID:8f77594f32d14e40b107e8394633124d",
+        "GUID:193cdbb2735e402eaa7d7f2a7b7ae952"
+    ],
     "includePlatforms": [
         "Editor"
     ],

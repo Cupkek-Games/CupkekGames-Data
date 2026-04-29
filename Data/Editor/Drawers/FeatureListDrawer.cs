@@ -1,8 +1,8 @@
+using CupkekGames.EditorUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using CupkekGames.Core.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;

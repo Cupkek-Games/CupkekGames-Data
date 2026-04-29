@@ -2,9 +2,11 @@
 
 ## Package Overview
 
-**CupkekGames Data** (`com.cupkekgames.data`) is the persistence foundation for CupkekGames packages. Pure data layer — no UI, no game-specific logic. Includes IData types, ServiceLocator, GameSave runtime, and Newtonsoft JSON serialization.
+**CupkekGames Data** (`com.cupkekgames.data`) is the persistence foundation for CupkekGames packages. Pure data layer — no UI, no game-specific logic. Provides IData types, asset catalog (`AssetCatalog<T>`), drop-table utilities, and primitive IData wrappers.
 
-This package depends only on `com.cupkekgames.core` and Unity's Newtonsoft Json package. Reusable in any Unity project (no Luna UI dep).
+(ServiceLocator, GameSave runtime, and Newtonsoft serialization were once sub-asmdefs of this package; they're now their own sibling packages — `com.cupkekgames.services`, `com.cupkekgames.gamesave`, `com.cupkekgames.newtonsoft`.)
+
+Direct deps: `keyvaluedatabase`, `editorui`, `assetfinder`, `servicelocator`. Reusable in any Unity project (no Luna UI dep).
 
 ## Critical: Do not hand-edit Unity serialized assets or `.meta` files
 
@@ -54,6 +56,9 @@ com.cupkekgames.data/
 
 ## Related packages
 
-- `com.cupkekgames.core` — shared utilities (Singleton, Pool, KeyValueDatabase, Input)
-- `com.cupkekgames.luna` — UI library
+- `com.cupkekgames.keyvaluedatabase` — serializable Dictionary used by `AssetCatalog`
+- `com.cupkekgames.assetfinder` — `[AssetFinder]` attribute on catalogs
+- `com.cupkekgames.editorui` — custom inspector widgets
+- `com.cupkekgames.services` — service registration
+- `com.cupkekgames.luna` — UI library (consumers, not a dep here)
 - Multi-package architecture: see Luna's `Documentation/ARCHITECTURE.md`

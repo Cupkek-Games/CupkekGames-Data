@@ -1,10 +1,10 @@
+using CupkekGames.EditorUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using CupkekGames.Core.Editor;
 using CupkekGames.Data;
-using CupkekGames.Systems;
+using CupkekGames.Services;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.UIElements;
