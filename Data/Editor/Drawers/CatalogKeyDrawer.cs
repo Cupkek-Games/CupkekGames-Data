@@ -342,7 +342,7 @@ namespace CupkekGames.Data.Editor
 
         private static AdvancedDropdownState GetCatalogKeyDropdownState(SerializedProperty property)
         {
-            int id = property.serializedObject.targetObject.GetInstanceID();
+            int id = property.serializedObject.targetObject.GetHashCode();
             unchecked
             {
                 id = id * 31 + StringComparer.Ordinal.GetHashCode(property.propertyPath);
