@@ -7,7 +7,15 @@ namespace CupkekGames.Data
     /// </summary>
     public interface IAssetCatalog : ICatalog
     {
+        /// <summary>
+        /// Resolve <paramref name="key"/>, expecting a hit. Implementations may log a
+        /// dev-build warning on a miss — use <see cref="TryGetValue"/> when a miss is
+        /// expected (probing across multiple co-registered catalogs).
+        /// </summary>
         Object GetValue(string key);
+
+        /// <summary>Silent probe: true + value on hit, false on miss, never warns.</summary>
+        bool TryGetValue(string key, out Object value);
     }
 
     /// <summary>

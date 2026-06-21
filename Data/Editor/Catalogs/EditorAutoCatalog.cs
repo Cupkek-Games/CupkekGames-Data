@@ -66,7 +66,24 @@ namespace CupkekGames.Data.Editor
         public T GetValue(string key) =>
             !string.IsNullOrEmpty(key) && Map.TryGetValue(key, out T value) ? value : null;
 
+        public bool TryGetValue(string key, out T value)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                value = null;
+                return false;
+            }
+            return Map.TryGetValue(key, out value);
+        }
+
         Object IAssetCatalog.GetValue(string key) => GetValue(key);
+
+        bool IAssetCatalog.TryGetValue(string key, out Object value)
+        {
+            bool found = TryGetValue(key, out T typed);
+            value = typed;
+            return found;
+        }
 
         // ── Editor lifecycle seam (driven by EditorAutoCatalogHost) ──
         void IEditorAutoCatalog.InvalidateCache() => _map = null;

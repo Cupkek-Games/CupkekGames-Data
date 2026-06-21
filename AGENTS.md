@@ -61,4 +61,4 @@ com.cupkekgames.data/
 - `com.cupkekgames.editorui` — custom inspector widgets
 - `com.cupkekgames.services` — service registration
 - `com.cupkekgames.luna` — UI library (consumers, not a dep here)
-- Multi-package architecture: see Luna's `Documentation/ARCHITECTURE.md`
+- Multi-package architecture: see https://docs.cupkek.games/luna/architecture (Luna's in-package ARCHITECTURE.md was removed 2026-06-11; the site is the docs home)

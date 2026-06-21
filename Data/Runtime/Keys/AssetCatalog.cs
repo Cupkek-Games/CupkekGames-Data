@@ -21,9 +21,46 @@ namespace CupkekGames.Data
 
         public IEnumerable<string> GetKeys() => _database.Keys;
 
-        public T GetValue(string key) => _database.GetValue(key);
+        /// <summary>
+        /// Resolve <paramref name="key"/>, expecting a hit. A miss returns null and logs
+        /// a warning in the editor / development builds (typo'd key or deleted asset are
+        /// otherwise indistinguishable at the call site). Null/empty keys return null
+        /// silently — an unset <see cref="CatalogKey"/> is not an error. Use
+        /// <see cref="TryGetValue"/> to probe without the warning.
+        /// </summary>
+        public T GetValue(string key)
+        {
+            if (string.IsNullOrEmpty(key)) return null;
+            if (_database.TryGetValue(key, out T value)) return value;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Debug.LogWarning(
+                $"[AssetCatalog] '{_catalogId}' has no entry for key '{key}'. " +
+                "Typo'd key or deleted asset? Use TryGetValue to probe without this warning.", this);
+#endif
+            return null;
+        }
+
+        /// <summary>Silent probe — no miss warning. Use in multi-catalog lookup loops.</summary>
+        public bool TryGetValue(string key, out T value)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                value = null;
+                return false;
+            }
+            return _database.TryGetValue(key, out value);
+        }
+
+        public bool ContainsKey(string key) => !string.IsNullOrEmpty(key) && _database.ContainsKey(key);
 
         Object IAssetCatalog.GetValue(string key) => GetValue(key);
+
+        bool IAssetCatalog.TryGetValue(string key, out Object value)
+        {
+            bool found = TryGetValue(key, out T typed);
+            value = typed;
+            return found;
+        }
 
         public override void RegisterServices()
         {

@@ -37,8 +37,9 @@ namespace CupkekGames.Data.Editor
             IReadOnlyList<IAssetCatalog> assetCatalogs = ServiceLocator.GetAll<IAssetCatalog>(catalogId);
             for (int i = 0; i < assetCatalogs.Count; i++)
             {
-                UnityEngine.Object value = assetCatalogs[i].GetValue(key);
-                if (value != null)
+                // TryGetValue: the drawer probes to validate/preview a key — an
+                // unresolved key is reported in the inspector UI, not the console.
+                if (assetCatalogs[i].TryGetValue(key, out UnityEngine.Object value) && value != null)
                     return value;
             }
 
@@ -357,12 +358,29 @@ namespace CupkekGames.Data.Editor
             return state;
         }
 
+        private const string ConstraintLockTooltip =
+            "Locked by [CatalogKeyConstraint] — the catalog id is fixed by the field's attribute.";
+
         private static void SyncConstraintCatalog(SerializedProperty catalogProp, CatalogKeyConstraintAttribute constraint)
         {
             if (constraint == null || string.IsNullOrEmpty(constraint.CatalogId))
                 return;
             if (catalogProp.stringValue == constraint.CatalogId)
                 return;
+
+            // A differing stored value means stale data (constraint added
+            // after authoring, debug-inspector edit, code write). The
+            // constraint wins — but rewriting the asset as a side effect of
+            // drawing the inspector must not be silent. Empty → constraint
+            // stays quiet: that's just a fresh field getting its default.
+            if (!string.IsNullOrEmpty(catalogProp.stringValue))
+            {
+                Debug.LogWarning(
+                    $"[CatalogKey] '{catalogProp.serializedObject.targetObject.name}' ({catalogProp.propertyPath}): " +
+                    $"stored catalog '{catalogProp.stringValue}' overwritten by [CatalogKeyConstraint] catalog '{constraint.CatalogId}'.",
+                    catalogProp.serializedObject.targetObject);
+            }
+
             catalogProp.stringValue = constraint.CatalogId;
             catalogProp.serializedObject.ApplyModifiedProperties();
         }
@@ -525,7 +543,10 @@ namespace CupkekGames.Data.Editor
 
             if (constraint != null && !string.IsNullOrEmpty(constraint.CatalogId))
             {
-                EditorGUI.LabelField(fieldRect, constraint.CatalogId);
+                GUIContent locked = new GUIContent(constraint.CatalogId,
+                    EditorGUIUtility.IconContent("AssemblyLock").image,
+                    ConstraintLockTooltip);
+                EditorGUI.LabelField(fieldRect, locked);
                 return;
             }
 
@@ -688,14 +709,7 @@ namespace CupkekGames.Data.Editor
 
             CatalogKeyConstraintAttribute constraint = ResolveConstraint();
 
-            if (constraint != null && !string.IsNullOrEmpty(constraint.CatalogId))
-            {
-                if (catalogProp.stringValue != constraint.CatalogId)
-                {
-                    catalogProp.stringValue = constraint.CatalogId;
-                    catalogProp.serializedObject.ApplyModifiedProperties();
-                }
-            }
+            SyncConstraintCatalog(catalogProp, constraint);
 
             var root = new VisualElement();
             root.style.flexDirection = FlexDirection.Column;
@@ -834,9 +848,21 @@ namespace CupkekGames.Data.Editor
 
             if (constraint != null && !string.IsNullOrEmpty(constraint.CatalogId))
             {
+                var lockIcon = new Image();
+                lockIcon.image = EditorGUIUtility.IconContent("AssemblyLock").image;
+                lockIcon.scaleMode = ScaleMode.ScaleToFit;
+                lockIcon.style.width = 14;
+                lockIcon.style.height = 14;
+                lockIcon.style.flexShrink = 0;
+                lockIcon.style.alignSelf = Align.Center;
+                lockIcon.style.marginRight = 3;
+                lockIcon.tooltip = ConstraintLockTooltip;
+                inputContainer.Add(lockIcon);
+
                 var valueLabel = new Label(constraint.CatalogId);
                 valueLabel.style.flexGrow = 1;
                 valueLabel.style.unityTextAlign = TextAnchor.MiddleLeft;
+                valueLabel.tooltip = ConstraintLockTooltip;
                 inputContainer.Add(valueLabel);
                 return row;
             }
