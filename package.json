@@ -17,9 +17,9 @@
     "CupkekGames"
   ],
   "dependencies": {
-    "com.cupkekgames.keyvaluedatabases": "0.1.1",
-    "com.cupkekgames.editorui": "0.1.0",
-    "com.cupkekgames.assetfinder": "0.1.2",
-    "com.cupkekgames.services": "0.1.1"
+    "com.cupkekgames.keyvaluedatabases": "0.2.0",
+    "com.cupkekgames.editorui": "0.1.1",
+    "com.cupkekgames.assetfinder": "0.1.3",
+    "com.cupkekgames.services": "0.1.4"
   }
 }
