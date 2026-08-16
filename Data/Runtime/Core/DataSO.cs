@@ -1,6 +1,7 @@
 using System;
 using CupkekGames.Services;
 using UnityEngine;
+using Unity.Scripting.LifecycleManagement;
 
 namespace CupkekGames.Data
 {
@@ -49,7 +50,7 @@ namespace CupkekGames.Data
         }
     }
 
-    public abstract class DataSO<T> : DataSO, IDataSO where T : IData, new()
+    public abstract partial class DataSO<T> : DataSO, IDataSO where T : IData, new()
     {
         [SerializeField] private T _defaultData = new();
         [SerializeField] private bool _resetOnStart = true;
@@ -63,6 +64,7 @@ namespace CupkekGames.Data
 
         IData IDataSO.Data => _actualData;
 
+        [AutoStaticsCleanup]
         private static IDataSerializer _serializer;
         private static IDataSerializer Serializer => _serializer ??= ServiceLocator.Get<IDataSerializer>();
 

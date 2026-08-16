@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEditor;
+using Unity.Scripting.LifecycleManagement;
 
 namespace CupkekGames.Data.Editor
 {
@@ -19,8 +20,9 @@ namespace CupkekGames.Data.Editor
     /// statics — this is the single shared registry, subscription, and asset watcher for all of them.
     /// </para>
     /// </summary>
-    internal static class EditorAutoCatalogHost
+    internal static partial class EditorAutoCatalogHost
     {
+        [NoAutoStaticsCleanup]
         static readonly List<IEditorAutoCatalog> Instances = new();
 
         // Static ctor runs on the first Add() — i.e. the first consumer's [InitializeOnLoad], once per
@@ -28,11 +30,15 @@ namespace CupkekGames.Data.Editor
         // re-register on return to edit, deferred via delayCall so it lands AFTER that synchronous ClearAll.
         static EditorAutoCatalogHost()
         {
-            EditorApplication.playModeStateChanged += state =>
-            {
-                if (state == PlayModeStateChange.EnteredEditMode)
-                    EditorApplication.delayCall += RegisterAll;
-            };
+            // Named, not a lambda, so the -= can actually match and this stays idempotent.
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        }
+
+        private static void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.EnteredEditMode)
+                EditorApplication.delayCall += RegisterAll;
         }
 
         public static void Add(IEditorAutoCatalog instance)

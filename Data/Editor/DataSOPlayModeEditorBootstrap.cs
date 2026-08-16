@@ -8,6 +8,7 @@ namespace CupkekGames.Data.Editor
     {
         static DataSOPlayModeEditorBootstrap()
         {
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
 

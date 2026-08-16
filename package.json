@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "com.cupkekgames.data",
   "displayName": "CupkekGames Data",
   "version": "0.3.1",
@@ -6,7 +6,7 @@
     "name": "CupkekGames",
     "url": "https://www.docs.cupkek.games"
   },
-  "unity": "6000.0",
+  "unity": "6000.5",
   "documentationUrl": "https://docs.cupkek.games/",
   "description": "Data foundation for CupkekGames packages: IData / DataSO / asset catalog, primitive implementations, and drop-table utilities. Serialization-agnostic and UI-free. Pair with com.cupkekgames.gamesave for save management, com.cupkekgames.newtonsoft for JSON persistence, com.cupkekgames.services for runtime registration.",
   "keywords": [

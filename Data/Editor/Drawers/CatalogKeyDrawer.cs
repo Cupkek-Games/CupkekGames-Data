@@ -10,6 +10,7 @@ using UnityEditor.IMGUI.Controls;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Unity.Scripting.LifecycleManagement;
 
 namespace CupkekGames.Data.Editor
 {
@@ -304,9 +305,10 @@ namespace CupkekGames.Data.Editor
 
     [CustomPropertyDrawer(typeof(CatalogKey))]
     [CustomPropertyDrawer(typeof(CatalogKeyConstraintAttribute))]
-    public class CatalogKeyDrawer : PropertyDrawer
+    public partial class CatalogKeyDrawer : PropertyDrawer
     {
-        private static readonly Dictionary<int, AdvancedDropdownState> s_catalogKeyDropdownStates = new();
+        [AutoStaticsCleanup]
+        private static Dictionary<int, AdvancedDropdownState> s_catalogKeyDropdownStates = new();
 
         /// <summary>
         /// Resolves constraint from attribute (when registered via CatalogKeyConstraintAttribute),
